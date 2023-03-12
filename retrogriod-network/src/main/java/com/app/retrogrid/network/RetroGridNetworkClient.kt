@@ -17,9 +17,9 @@ object RetroGridNetworkClient {
 
 
     fun <T> buildService(service: Class<T>): T {
-        val baseUrl = BaseConfiguration().getBaseUrl() ?: service.getDeclaredAnnotation(
+        val baseUrl = service.getDeclaredAnnotation(
             RetrofitServiceConfiguration::class.java
-        )?.baseUrl.orEmpty()
+        )?.baseUrl ?: BaseConfiguration().getBaseUrl().orEmpty()
         return dynamicRetrofit(baseUrl).create(service)
     }
 

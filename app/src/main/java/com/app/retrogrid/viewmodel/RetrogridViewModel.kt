@@ -23,5 +23,4 @@ class RetrogridViewModel(private val repository: NewsRepository = NewsRepository
         }
 
     }
-
 }
