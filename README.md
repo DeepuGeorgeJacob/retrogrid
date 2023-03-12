@@ -19,6 +19,7 @@ dependencies {
 ### Great you are done with integration.
 
 <br/>
+
 ### How to use the libary. <br>
 
 There are two ways(property file and annotation) to use this this library. Easy way is by creating annotation
