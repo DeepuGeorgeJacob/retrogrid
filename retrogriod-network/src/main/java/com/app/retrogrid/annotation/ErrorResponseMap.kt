@@ -1,4 +1,4 @@
-package com.app.retrogrid.error
+package com.app.retrogrid.annotation
 
 import kotlin.reflect.KClass
 

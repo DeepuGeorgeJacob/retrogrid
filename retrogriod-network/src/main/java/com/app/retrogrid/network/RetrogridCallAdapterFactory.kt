@@ -1,6 +1,6 @@
 package com.app.retrogrid.network
 
-import com.app.retrogrid.error.ErrorResponseMap
+import com.app.retrogrid.annotation.ErrorResponseMap
 import com.app.retrogrid.response.RetrogridResponse
 import retrofit2.Call
 import retrofit2.CallAdapter
