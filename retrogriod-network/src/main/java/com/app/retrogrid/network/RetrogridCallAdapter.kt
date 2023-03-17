@@ -5,7 +5,7 @@ import retrofit2.CallAdapter
 import java.lang.reflect.Type
 import kotlin.reflect.KClass
 
-class RetrogridCallAdapter<R>(
+internal class RetrogridCallAdapter<R>(
     private val successType: Type,
     private val errorClassName: KClass<*>
 ) : CallAdapter<R, RetrogridCall<R>> {

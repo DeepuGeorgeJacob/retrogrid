@@ -5,7 +5,7 @@ import java.util.Properties
 private const val BASE_URL_KEY = "api.base.url"
 private const val PRO_FILE_NAME = "retrofit.properties"
 
-class BaseConfiguration {
+internal class BasePropertyConfiguration {
 
     private val properties: Properties by lazy {
         val classLoader = Thread.currentThread().contextClassLoader

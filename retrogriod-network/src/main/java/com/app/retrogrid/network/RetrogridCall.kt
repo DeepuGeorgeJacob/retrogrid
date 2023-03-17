@@ -10,7 +10,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import kotlin.reflect.KClass
 
-class RetrogridCall<R>(
+internal class RetrogridCall<R>(
     private val delegate: Call<R>,
     private val errorClassName: KClass<*>
 ) : Call<RetrogridResponse<R>> {
