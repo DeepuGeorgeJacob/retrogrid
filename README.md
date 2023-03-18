@@ -4,17 +4,23 @@ Retrogrid is a library built on top of retrofit library for the easy intergation
 
 #### Steps to integrate
 
-1. Download and add `retrogriod-network` library into your root project.
-2. Edit your `setting.gradle` file and include `retrogriod-network` module like below.
-   `include ':retrogriod-network'`
-3. Add library dependency in your application level `build.gradle` file.
+1. Add it in your root build.gradle at the end of repositories:
 ```gradle
-dependencies {
-
-    implementation project(':retrogriod-network')
-}
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
 ```
 <br>
+2. Add the dependency in your app module
+
+```gradle
+dependencies {
+	        implementation 'com.github.DeepuGeorgeJacob:retrogrid:v1.0.2'
+	}
+```
 
 ### Great you are done with integration.
 
