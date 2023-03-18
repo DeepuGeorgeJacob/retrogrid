@@ -6,6 +6,7 @@ plugins {
 android {
     namespace 'com.app.retrogrid'
     compileSdk 33
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "com.app.retrogrid"

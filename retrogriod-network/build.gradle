@@ -1,11 +1,16 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
 }
+
+def githubProperties = new Properties()
+githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
 
 android {
     namespace 'com.app.retrogriod.network'
     compileSdk 33
+    compileSdkVersion 33
 
     defaultConfig {
         minSdk 24
@@ -26,6 +31,49 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                // Replace with your own group ID.
+                groupId 'com.app.retrogriod.network'
+
+                // Replace with the name of your library
+                artifactId 'retrogrid'
+                version '1.0.0'
+            }
+
+            debug(MavenPublication) {
+                from components.debug
+
+                // Replace with your own group ID.
+                groupId 'com.app.retrogriod.network'
+
+                // Replace with the name of your library
+                artifactId 'retrogrid'
+                version '1.0.0'
+            }
+        }
+
+        repositories {
+            maven {
+                name = "GitHubPackages"
+
+                // Replace GITHUB_USERID with your personal or organisation user ID and
+                // REPOSITORY with the name of the repository on GitHub
+                url = uri("https://maven.pkg.github.com/DeepuGeorgeJacob/retrogrid")
+
+                credentials {
+                    username = githubProperties['git.user']
+                    password = githubProperties['git.key']
+                }
+            }
+        }
     }
 }
 
