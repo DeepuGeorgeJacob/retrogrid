@@ -5,7 +5,10 @@ plugins {
 }
 
 def githubProperties = new Properties()
-githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
+def propertiesFile = rootProject.file("github.properties")
+if (propertiesFile.exists() && propertiesFile.canRead()) {
+    githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
+}
 
 android {
     namespace 'com.app.retrogriod.network'
@@ -39,22 +42,14 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
                 from components.release
-
-                // Replace with your own group ID.
                 groupId 'com.app.retrogriod.network'
-
-                // Replace with the name of your library
                 artifactId 'retrogrid'
                 version '1.0.3'
             }
 
             debug(MavenPublication) {
                 from components.debug
-
-                // Replace with your own group ID.
                 groupId 'com.app.retrogriod.network'
-
-                // Replace with the name of your library
                 artifactId 'retrogrid'
                 version '1.0.3'
             }
@@ -66,8 +61,8 @@ afterEvaluate {
                 url = uri("https://maven.pkg.github.com/DeepuGeorgeJacob/retrogrid")
 
                 credentials {
-                    username = githubProperties['git.user']
-                    password = githubProperties['git.key']
+                    username = githubProperties['git.user'] ?: project.getProperty('USER_NAME')
+                    password = githubProperties['git.key'] ?: project.getProperty('TOKEN')
                 }
             }
         }
