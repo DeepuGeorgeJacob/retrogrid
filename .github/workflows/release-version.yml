@@ -1,8 +1,8 @@
 name: Create Release
 on:
-  workflow_dispatch:
-    branches:
-      - main
+  push:
+    tags:
+      - 'v*.*.*' # match tags in the format v1.2.3
 
 jobs:
   release:
@@ -23,8 +23,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ vars.LIB_VERSION }}
-          release_name: Release ${{ vars.LIB_VERSION }}
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
           body: ${{vars.RELEASE_MESSAGE}}
           draft: false
           prerelease: false
