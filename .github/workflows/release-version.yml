@@ -17,6 +17,12 @@ jobs:
           server-id: github
           java-version: '11'
           settings-path: ${{ github.workspace }}
+      - name: Clean project
+        run: ./gradlew clean
+      - name: Build Project
+        run: ./gradlew build release
+      - name: After build
+        run: ./gradlew clean
       - name: Create Release
         uses: actions/create-release@v1
         id: create_release
