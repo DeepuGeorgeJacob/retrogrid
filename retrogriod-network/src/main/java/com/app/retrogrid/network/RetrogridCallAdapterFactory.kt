@@ -2,6 +2,7 @@ package com.app.retrogrid.network
 
 import com.app.retrogrid.annotation.ErrorResponseMap
 import com.app.retrogrid.configuration.RetrogridConfiguration
+import com.app.retrogrid.configuration.ServiceLayerConfiguration
 import com.app.retrogrid.response.RetrogridResponse
 import retrofit2.Call
 import retrofit2.CallAdapter
@@ -10,7 +11,8 @@ import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 import kotlin.reflect.KClass
 
-internal class RetrogridCallAdapterFactory : CallAdapter.Factory() {
+internal class RetrogridCallAdapterFactory(private val serviceLayerConfiguration: ServiceLayerConfiguration?) :
+    CallAdapter.Factory() {
     override fun get(
         returnType: Type,
         annotations: Array<out Annotation>,
@@ -25,8 +27,10 @@ internal class RetrogridCallAdapterFactory : CallAdapter.Factory() {
         }
         val annotationClass =
             annotations.firstOrNull { it.annotationClass == ErrorResponseMap::class } as? ErrorResponseMap
-        val errorClass = annotationClass?.errorClass ?: RetrogridConfiguration.getErrorClass() as? KClass<*>
-        ?: throw NullPointerException("Error class should be defined")
+        val errorClass =
+            annotationClass?.errorClass ?: serviceLayerConfiguration?.errorResponseClass
+            ?: RetrogridConfiguration.getErrorClass() as? KClass<*>
+            ?: throw NullPointerException("Error class should be defined")
 
 
         val successResponseType = getParameterUpperBound(0, returnType)

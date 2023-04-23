@@ -1,37 +1,47 @@
 package com.app.retrogrid.network
 
 import com.app.retrogrid.annotation.RetrofitServiceConfiguration
-import com.app.retrogrid.configuration.BasePropertyConfiguration
-import com.app.retrogrid.configuration.RetrogridConfiguration
-import com.app.retrogrid.intercepter.LoggingInterceptor
+import com.app.retrogrid.configuration.ServiceLayerConfiguration
+import com.app.retrogrid.exytensions.getBaseUrl
+import com.app.retrogrid.exytensions.getInterceptors
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetroGridNetworkClient {
 
-    private fun dynamicRetrofit(baseUrl: String): Retrofit {
-        val clientBuilder = OkHttpClient.Builder().addInterceptor(LoggingInterceptor())
-        RetrogridConfiguration.getInterceptors().map {
+    private fun dynamicRetrofit(serviceLayerConfiguration: ServiceLayerConfiguration?): Retrofit {
+        val clientBuilder = OkHttpClient.Builder()
+        serviceLayerConfiguration.getInterceptors().forEach {
             clientBuilder.addInterceptor(it)
         }
         val client = clientBuilder.build()
 
         return Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(serviceLayerConfiguration.getBaseUrl())
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RetrogridCallAdapterFactory())
+            .addCallAdapterFactory(RetrogridCallAdapterFactory(serviceLayerConfiguration))
             .client(client)
             .build()
     }
 
 
     fun <T> buildService(service: Class<T>): T {
-        val baseUrl = service.getDeclaredAnnotation(
-            RetrofitServiceConfiguration::class.java
-        )?.baseUrl ?: BasePropertyConfiguration().getBaseUrl()
-        ?: RetrogridConfiguration.getBaseUrl()
-        return dynamicRetrofit(baseUrl).create(service)
+        val serviceLayerConfiguration = getOrNullErrorServiceLayerData(service)
+        return dynamicRetrofit(serviceLayerConfiguration).create(service)
+    }
+
+    private fun <T> getOrNullErrorServiceLayerData(service: Class<T>): ServiceLayerConfiguration? {
+        val annotation = service.getDeclaredAnnotation(RetrofitServiceConfiguration::class.java)
+        if (annotation != null) {
+            return ServiceLayerConfiguration(
+                baseUrl = annotation.baseUrl,
+                errorResponseClass = annotation.errorResponseClass,
+                interceptors = annotation.interceptors,
+                isDefaultNetworkLogEnabled = annotation.enableRequestResponseDefaultLog
+            )
+        }
+        return null
     }
 
 }

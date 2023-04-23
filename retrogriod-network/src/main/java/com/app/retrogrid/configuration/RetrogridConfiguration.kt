@@ -6,7 +6,7 @@ object RetrogridConfiguration {
     private var isLoggEnabled = false
     private var errorKlass: Any? = null
     private val interceptors = mutableListOf<Interceptor>()
-    private var baseUrl:String? = null
+    private var baseUrl: String? = null
 
     fun enableLog(isLoggEnabled: Boolean): RetrogridConfiguration {
         this.isLoggEnabled = isLoggEnabled
@@ -18,12 +18,12 @@ object RetrogridConfiguration {
         return this
     }
 
-    fun <T:Interceptor>addInterceptor(interceptor: T): RetrogridConfiguration {
+    fun <T : Interceptor> addInterceptor(interceptor: T): RetrogridConfiguration {
         interceptors.add(interceptor)
         return this
     }
 
-    fun setBaseUrl(url:String): RetrogridConfiguration {
+    fun setBaseUrl(url: String): RetrogridConfiguration {
         this.baseUrl = url
         return this
     }
@@ -35,7 +35,7 @@ object RetrogridConfiguration {
 
     internal fun getInterceptors() = this.interceptors
 
-    internal fun getBaseUrl() = this.baseUrl.orEmpty()
+    internal fun getBaseUrl() = this.baseUrl
 
 }
 
