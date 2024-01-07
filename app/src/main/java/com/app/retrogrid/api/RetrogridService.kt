@@ -1,6 +1,7 @@
 package com.app.retrogrid.api
 
 import com.app.retrogrid.annotation.RetrofitServiceConfiguration
+import com.app.retrogrid.api.mock.RetrogridAppMockProvider
 import com.app.retrogrid.intercepter.HeaderInterceptor
 import com.app.retrogrid.model.NewsErrorResponse
 import com.app.retrogrid.model.NewsOverview
@@ -11,7 +12,8 @@ import retrofit2.http.GET
     baseUrl = "https://newsapi.org/v2/",
     errorResponseClass = NewsErrorResponse::class,
     interceptors = [HeaderInterceptor::class],
-    enableRequestResponseDefaultLog = true
+    enableRequestResponseDefaultLog = true,
+    mockDataProvider = RetrogridAppMockProvider::class
 )
 interface RetrogridService {
     @GET(value = "everything?domains=wsj.com&apiKey=a93a86ca5d144c2dbd676e53fb096c68")

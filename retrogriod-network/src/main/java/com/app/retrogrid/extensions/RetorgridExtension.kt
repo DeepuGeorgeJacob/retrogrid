@@ -1,4 +1,4 @@
-package com.app.retrogrid.exytensions
+package com.app.retrogrid.extensions
 
 import com.app.retrogrid.configuration.BasePropertyConfiguration
 import com.app.retrogrid.configuration.RetrogridConfiguration

@@ -1,18 +1,15 @@
 package com.app.retrogrid.network
 
-import com.app.retrogrid.annotation.ErrorResponseMap
-import com.app.retrogrid.configuration.RetrogridConfiguration
-import com.app.retrogrid.configuration.ServiceLayerConfiguration
 import com.app.retrogrid.response.RetrogridResponse
 import retrofit2.Call
 import retrofit2.CallAdapter
 import retrofit2.Retrofit
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
-import kotlin.reflect.KClass
 
-internal class RetrogridCallAdapterFactory(private val serviceLayerConfiguration: ServiceLayerConfiguration?) :
+internal class MockRetrogridCallAdapterFactory() :
     CallAdapter.Factory() {
+
     override fun get(
         returnType: Type,
         annotations: Array<out Annotation>,
@@ -25,13 +22,6 @@ internal class RetrogridCallAdapterFactory(private val serviceLayerConfiguration
         check(returnType is ParameterizedType) {
             "return type must be parameterized"
         }
-        val annotationClass =
-            annotations.firstOrNull { it.annotationClass == ErrorResponseMap::class } as? ErrorResponseMap
-
-        val errorClass =
-            annotationClass?.errorClass ?: serviceLayerConfiguration?.errorResponseClass
-            ?: RetrogridConfiguration.getErrorClass() as? KClass<*>
-            ?: throw NullPointerException("Error class should be defined")
 
         val successResponseType = getParameterUpperBound(0, returnType)
         // if the response type is not RetrogridResponse then we can't handle this type, so we return null
@@ -44,6 +34,8 @@ internal class RetrogridCallAdapterFactory(private val serviceLayerConfiguration
 
         val successBodyType = getParameterUpperBound(0, successResponseType)
 
-        return RetrogridCallAdapter<Any>(successBodyType, errorClass)
+        val baseUrl = retrofit.baseUrl()
+
+        return MockRetrogridCallAdapter<Any>(successBodyType, baseUrl)
     }
 }

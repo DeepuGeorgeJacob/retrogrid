@@ -1,5 +1,6 @@
 package com.app.retrogrid.configuration
 
+import com.app.retrogrid.mock.MockProvider
 import okhttp3.Interceptor
 
 object RetrogridConfiguration {
@@ -7,6 +8,8 @@ object RetrogridConfiguration {
     private var errorKlass: Any? = null
     private val interceptors = mutableListOf<Interceptor>()
     private var baseUrl: String? = null
+
+    private var mockProvider:MockProvider? = null
 
     fun enableLog(isLoggEnabled: Boolean): RetrogridConfiguration {
         this.isLoggEnabled = isLoggEnabled
@@ -28,6 +31,10 @@ object RetrogridConfiguration {
         return this
     }
 
+    fun setMockProvider(mockProvider: MockProvider) {
+        this.mockProvider = mockProvider
+    }
+
 
     internal fun isLogEnabled() = this.isLoggEnabled
 
@@ -36,6 +43,9 @@ object RetrogridConfiguration {
     internal fun getInterceptors() = this.interceptors
 
     internal fun getBaseUrl() = this.baseUrl
+
+    internal fun getMockProvider() = this.mockProvider
+
 
 }
 

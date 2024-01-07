@@ -1,0 +1,32 @@
+{
+    "status": "ok",
+    "totalResults": 245,
+    "articles": [
+    {
+        "source": {
+        "id": "the-wall-street-journal",
+        "name": "The Wall Street Journal"
+    },
+        "author": "Alison Sider",
+        "title": "Alaska Airlines Jet Makes Emergency Landing After Boeing 737 MAX Rips Open",
+        "description": "A plane returned safely to Portland, Ore., after a section ripped away shortly after takeoff",
+        "url": "https://www.wsj.com/business/airlines/alaska-airlines-jet-makes-emergency-landing-after-boeing-737-max-rips-open-b3af13fc",
+        "urlToImage": "https://images.wsj.net/im-909020/social",
+        "publishedAt": "2024-01-06T06:38:09Z",
+        "content": "Alaska Airlines will temporarily ground dozens of Boeing 737 MAX jets after a section of one of its new planes ripped away in midair Friday, forcing it to make an emergency landing shortly after take… [+423 chars]"
+    },
+    {
+        "source": {
+        "id": "the-wall-street-journal",
+        "name": "The Wall Street Journal"
+    },
+        "author": "Alexandra Bruell",
+        "title": "News Startup Puck Taps Former Twitter Customer Chief as CEO",
+        "description": "Sarah Personette will be tasked with helping company expand into new coverage areas and markets",
+        "url": "https://www.wsj.com/business/media/news-startup-puck-taps-former-twitter-customer-chief-as-ceo-16f27c06",
+        "urlToImage": "https://images.wsj.net/im-908368/social",
+        "publishedAt": "2024-01-05T15:19:47Z",
+        "content": "Puck tapped the former Twitter executive Sarah Personette as chief executive officer of the news startup, where she will be tasked with shepherding its expansion into new coverage areas and markets.\r… [+355 chars]"
+    }
+    ]
+}
